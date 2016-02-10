@@ -1,6 +1,7 @@
 #include "bench11.h"
 #include <limits>
 #include <thread>
+#include <chrono>
 
 void worker() {
     BENCH11_ALL;
@@ -20,5 +21,6 @@ int main() {
     std::thread t1(hardWorker);
     worker();
     t1.join();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 

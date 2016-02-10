@@ -48,7 +48,7 @@ namespace BENCH11 {
         }
         static void logMessageAsync(const std::string& message) {
             std::thread tr(logMessageSync, message);
-            tr.join();
+            tr.detach();
         }
     public:
         void logMessage(const std::string& message) const { 
