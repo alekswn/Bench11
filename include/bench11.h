@@ -51,7 +51,7 @@ namespace BENCH11 {
             tr.join();
         }
     public:
-        void logMessage(const std::string& message) { 
+        void logMessage(const std::string& message) const { 
                 logMessageAsync(TAG + message); 
             }
         Logger(std::string methodName, std::string fileName, int lineNumber)
@@ -67,16 +67,16 @@ namespace BENCH11 {
     };
     
     class CPU {
-        Logger logger;
-        std::chrono::high_resolution_clock::time_point t_start;
-        std::clock_t c_start;
+        const Logger logger;
+        const std::chrono::high_resolution_clock::time_point t_start;
+        const std::clock_t c_start;
     
-    public: 
+    public:
         CPU(std::string methodName, std::string fileName, int lineNumber) 
-        :logger(methodName, fileName, lineNumber) {
-            t_start = std::chrono::high_resolution_clock::now();
-            c_start = std::clock();
-            }
+        :logger(methodName, fileName, lineNumber),
+         t_start(std::chrono::high_resolution_clock::now()),
+         c_start(std::clock())
+        {}
         ~CPU() {
             auto c_end = std::clock();
             auto t_end = std::chrono::high_resolution_clock::now();
