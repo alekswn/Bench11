@@ -36,8 +36,8 @@
 #include <thread>
 
 
-#define BENCH11_CPU BENCH11::CPU BEHCH11_CPU_OBJ(__PRETTY_FUNCTION__, __FILE__, __LINE__);
-#define BENCH11_ALL BENCH11_CPU
+#define BENCH11_TIMER BENCH11::Timer BEHCH11_CPU_OBJ(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+#define BENCH11_ALL BENCH11_TIMER
 
 namespace BENCH11 {
     class Logger {
@@ -66,15 +66,15 @@ namespace BENCH11 {
         }
     };
     
-    class CPU {
+    class Timer {
         const Logger logger;
         const std::chrono::high_resolution_clock::time_point t_start;    
     public:
-        CPU(std::string methodName, std::string fileName, int lineNumber) 
+        Timer(std::string methodName, std::string fileName, int lineNumber) 
         :logger(methodName, fileName, lineNumber),
          t_start(std::chrono::high_resolution_clock::now())
         {}
-        ~CPU() {
+        ~Timer() {
             auto t_end = std::chrono::high_resolution_clock::now();
             std::basic_ostringstream<char> os;
             os   << "Wall time: "
@@ -88,7 +88,7 @@ namespace BENCH11 {
 } //namespace BENCH11
 #else
 
-#define BENCH11_CPU
+#define BENCH11_TIMER
 #define BENCH11_MEM
 #define BENCH11_ALL
 
