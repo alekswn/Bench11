@@ -21,6 +21,7 @@ int main() {
     std::thread t1(hardWorker);
     worker();
     t1.join();
+    //Logger might need some additional time to finish  with his output.
     std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
