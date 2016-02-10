@@ -68,22 +68,16 @@ namespace BENCH11 {
     
     class CPU {
         const Logger logger;
-        const std::chrono::high_resolution_clock::time_point t_start;
-        const std::clock_t c_start;
-    
+        const std::chrono::high_resolution_clock::time_point t_start;    
     public:
         CPU(std::string methodName, std::string fileName, int lineNumber) 
         :logger(methodName, fileName, lineNumber),
-         t_start(std::chrono::high_resolution_clock::now()),
-         c_start(std::clock())
+         t_start(std::chrono::high_resolution_clock::now())
         {}
         ~CPU() {
-            auto c_end = std::clock();
             auto t_end = std::chrono::high_resolution_clock::now();
             std::basic_ostringstream<char> os;
-            os   << "CPU time: "
-                 << 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC << " ms; "
-                 << "Wall time: "
+            os   << "Wall time: "
                  << std::chrono::duration<double, std::milli>(t_end-t_start).count()
                  << " ms";
             logger.logMessage(os.str());
